@@ -1,9 +1,7 @@
-# Exact versions from working .venv for Python 3.13
-# Generated from pip freeze - September 2025
-
 # Web framework and server
 fastapi==0.117.1
 uvicorn[standard]==0.36.0
+gunicorn==23.0.0
 
 # Data validation
 pydantic==2.11.9
@@ -22,6 +20,7 @@ numpy==2.3.3
 matplotlib==3.10.6
 seaborn==0.13.2
 scikit-learn==1.7.2
+joblib==1.4.2
 
 # Jupyter support
 jupyter==1.1.1
