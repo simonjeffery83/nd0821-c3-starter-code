@@ -1,17 +1,14 @@
-# Put the code for your API here.
 import os
 import joblib
 import pandas as pd
 from fastapi import FastAPI
 from pydantic import BaseModel, Field
-from typing import List
-import os
 import sys
 
 # Adds the project root to the path so it can see the 'src' folder
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from src.train_model import inference
-from src.data import process_data
+from src.train_model import inference  # noqa: E402
+from src.data import process_data   # noqa: E402
 
 app = FastAPI()
 
@@ -34,7 +31,8 @@ class CensusData(BaseModel):
     fnlwgt: int = Field(..., example=77516)
     education: str = Field(..., example="Bachelors")
     education_num: int = Field(..., alias="education-num", example=13)
-    marital_status: str = Field(..., alias="marital-status", example="Never-married")
+    marital_status: str = Field(..., alias="marital-status",
+                                example="Never-married")
     occupation: str = Field(..., example="Adm-clerical")
     relationship: str = Field(..., example="Not-in-family")
     race: str = Field(..., example="White")
@@ -42,7 +40,8 @@ class CensusData(BaseModel):
     capital_gain: int = Field(..., alias="capital-gain", example=2174)
     capital_loss: int = Field(..., alias="capital-loss", example=0)
     hours_per_week: int = Field(..., alias="hours-per-week", example=40)
-    native_country: str = Field(..., alias="native-country", example="United-States")
+    native_country: str = Field(..., alias="native-country",
+                                example="United-States")
 
     model_config = {
         "populate_by_name": True,
