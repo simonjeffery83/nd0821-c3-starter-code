@@ -7,10 +7,12 @@ from pydantic import BaseModel, Field
 from typing import List
 import os
 import sys
+
 # Adds the project root to the path so it can see the 'src' folder
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from src.train_model import inference
 from src.data import process_data
+
 app = FastAPI()
 
 
@@ -24,6 +26,7 @@ lb_path = os.path.join(current_dir, "..", "model", "label_binarizer.pkl")
 model = joblib.load(model_path)
 encoder = joblib.load(encoder_path)
 lb = joblib.load(lb_path)
+
 
 class CensusData(BaseModel):
     age: int = Field(..., example=39)
@@ -58,31 +61,43 @@ class CensusData(BaseModel):
                 "capital-gain": 2174,
                 "capital-loss": 0,
                 "hours-per-week": 40,
-                "native-country": "United-States"
+                "native-country": "United-States",
             }
-        }
+        },
     }
+
 
 @app.get("/")
 async def root():
     return {"message": "Welcome to the Census Income Prediction API!"}
 
+
 @app.post("/predict")
 async def predict(data: CensusData):
     # Convert Pydantic model to DataFrame
     input_df = pd.DataFrame([data.model_dump(by_alias=True)])
-    
+
     cat_features = [
-        "workclass", "education", "marital-status", "occupation",
-        "relationship", "race", "sex", "native-country",
+        "workclass",
+        "education",
+        "marital-status",
+        "occupation",
+        "relationship",
+        "race",
+        "sex",
+        "native-country",
     ]
 
     # Process the data (training=False because we are using saved artifacts)
     X, _, _, _ = process_data(
-        input_df, categorical_features=cat_features, training=False, encoder=encoder, lb=lb
+        input_df,
+        categorical_features=cat_features,
+        training=False,
+        encoder=encoder,
+        lb=lb,
     )
-    
+
     prediction = inference(model, X)
     label = lb.inverse_transform(prediction)[0]
-    
+
     return {"prediction": label}

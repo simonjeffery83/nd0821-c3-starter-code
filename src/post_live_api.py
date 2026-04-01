@@ -1,7 +1,8 @@
 import requests
 
 # Replace with your actual Heroku app URL
-live_url = "https://census-model-api-simonjeffery-6d6e4d778acc.herokuapp.com/"
+live_url = "https://census-model-api-simonjeffery-6d6e4d778acc.herokuapp.com/predict"
+
 
 data = {
     "age": 32,
@@ -17,7 +18,7 @@ data = {
     "capital-gain": 0,
     "capital-loss": 0,
     "hours-per-week": 45,
-    "native-country": "United-States"
+    "native-country": "United-States",
 }
 
 response = requests.post(live_url, json=data)
