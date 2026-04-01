@@ -13,10 +13,13 @@ from src.train_model import inference
 from src.data import process_data
 app = FastAPI()
 
+
+current_dir = os.path.dirname(os.path.abspath(__file__))
 # Load artifacts on startup
-model_path = os.path.join(os.getcwd(), "../model/trained_model.pkl")
-encoder_path = os.path.join(os.getcwd(), "../model/encoder.pkl")
-lb_path = os.path.join(os.getcwd(), "../model/label_binarizer.pkl")
+# Go UP one level to the root, then INTO the 'model' folder
+model_path = os.path.join(current_dir, "..", "model", "trained_model.pkl")
+encoder_path = os.path.join(current_dir, "..", "model", "encoder.pkl")
+lb_path = os.path.join(current_dir, "..", "model", "label_binarizer.pkl")
 
 model = joblib.load(model_path)
 encoder = joblib.load(encoder_path)
