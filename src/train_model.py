@@ -11,13 +11,7 @@ sys.path.append(os.path.dirname(
 from src.data import process_data  # noqa: E402
 
 
-# --- CORE FUNCTION 3: INFERENCE ---
-def inference(model, X):
-    """
-    Run machine learning predictions and return the predictions.
-    """
-    preds = model.predict(X)
-    return preds
+
 
 
 # --- SLICING PERFORMANCE FUNCTION ---
@@ -38,7 +32,7 @@ def compute_slices(df, feature, model, encoder, lb, cat_features):
             lb=lb,
         )
 
-        preds = inference(model, x_slice)
+        preds = m.inference(model, x_slice)
         precision, recall, fbeta = m.compute_model_metrics(y_slice, preds)
 
         line = f"Feature: {feature} | Value: {value} | Precision: {precision:.2f} | Recall: {recall:.2f}"  # noqa: E501

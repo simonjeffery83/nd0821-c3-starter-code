@@ -33,19 +33,10 @@ def compute_model_metrics(y, preds):
     recall = recall_score(y, preds, zero_division=1)
     return precision, recall, fbeta
 
-
+# --- CORE FUNCTION 3: INFERENCE ---
 def inference(model, X):
-    """Run model inferences and return the predictions.
-
-    Inputs
-    ------
-    model : RandomForestClassifier
-        Trained machine learning model.
-    X : np.ndarray
-        Data used for prediction.
-    Returns
-    -------
-    preds : np.ndarray
-        Predictions from the model.
     """
-    pass
+    Run machine learning predictions and return the predictions.
+    """
+    preds = model.predict(X)
+    return preds
