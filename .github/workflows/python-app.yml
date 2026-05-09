@@ -25,8 +25,11 @@ jobs:
 
       - name: Lint with flake8
         run: |
-          # Fails the build if there are syntax errors
-          flake8 src/ --count --select=E9,F63,F7,F82 --show-source --statistics
+          # stop the build if there are Python syntax errors or undefined names
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          # exit-zero treats all errors as warnings. 
+          # Remove --exit-zero when you are ready to force the build to fail on style issues.
+          flake8 . --count --max-complexity=10 --max-line-length=127 --statistics --exit-zero
 
       - name: Run Tests with pytest
         run: |
