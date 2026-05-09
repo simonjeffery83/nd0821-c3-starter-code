@@ -4,7 +4,7 @@ import joblib
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import fbeta_score, precision_score, recall_score
 import sys
-import src.model as m
+from . import model as m
 # Adds the project root to the path so it can see the 'src' folder
 sys.path.append(os.path.dirname(
     os.path.dirname(os.path.abspath(__file__))))
