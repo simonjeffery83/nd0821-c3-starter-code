@@ -2,7 +2,7 @@ import requests
 
 # Replace with your actual Heroku app URL
 live_url =\
-    "https://census-model-api-simonjeffery-6d6e4d778acc.herokuapp.com/predict"
+    "https://fast-api-demo-eda961a644d7.herokuapp.com/predict"
 
 
 data = {
