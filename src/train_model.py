@@ -2,37 +2,13 @@ import os
 import pandas as pd
 import joblib
 from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import fbeta_score, precision_score, recall_score
 import sys
-
+import model as m
 # Adds the project root to the path so it can see the 'src' folder
 sys.path.append(os.path.dirname(
     os.path.dirname(os.path.abspath(__file__))))
 from src.data import process_data  # noqa: E402
-
-
-# --- CORE FUNCTION 1: TRAINING ---
-def train_model(X_train, y_train):
-    """
-    Trains a machine learning model and returns it.
-    """
-    model = RandomForestClassifier(
-        n_estimators=100, max_depth=20, random_state=42)
-    model.fit(X_train, y_train)
-    return model
-
-
-# --- CORE FUNCTION 2: METRICS ---
-def compute_model_metrics(y, preds):
-    """
-    Validates the trained machine learning model
-    using precision, recall, and F1.
-    """
-    fbeta = fbeta_score(y, preds, beta=1, zero_division=1)
-    precision = precision_score(y, preds, zero_division=1)
-    recall = recall_score(y, preds, zero_division=1)
-    return precision, recall, fbeta
 
 
 # --- CORE FUNCTION 3: INFERENCE ---
@@ -63,7 +39,7 @@ def compute_slices(df, feature, model, encoder, lb, cat_features):
         )
 
         preds = inference(model, x_slice)
-        precision, recall, fbeta = compute_model_metrics(y_slice, preds)
+        precision, recall, fbeta = m.compute_model_metrics(y_slice, preds)
 
         line = f"Feature: {feature} | Value: {value} | Precision: {precision:.2f} | Recall: {recall:.2f}"  # noqa: E501
         print(line)
@@ -120,7 +96,7 @@ if __name__ == "__main__":
     )
 
     # 1. Train Model
-    model = train_model(X_train, y_train)
+    model = m.train_model(X_train, y_train)
 
     # 2. Process Test Data & Run Inference
     X_test, y_test, _, _ = process_data(
@@ -131,10 +107,10 @@ if __name__ == "__main__":
         encoder=encoder,
         lb=lb,
     )
-    preds = inference(model, X_test)
+    preds = m.inference(model, X_test)
 
     # 3. Compute overall metrics
-    precision, recall, fbeta = compute_model_metrics(y_test, preds)
+    precision, recall, fbeta = m.compute_model_metrics(y_test, preds)
     print(
         f"Overall Metrics -> Precision: {precision:.2f}, Recall: {recall:.2f}, F1: {fbeta:.2f}"  # noqa: E501
     )

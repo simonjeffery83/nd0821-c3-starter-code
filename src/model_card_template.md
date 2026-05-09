@@ -47,7 +47,3 @@ _The following metrics were achieved on the hold-out test set:_
 * **Temporal Drift:** Because the data is over 30 years old, the relationship between features like `education` and `income` has shifted. This model should be treated as a historical baseline rather than a modern predictor.
 * **Categorical Imbalance:** Some countries and occupations have very few samples, leading to lower reliability in predictions for those specific "slices."
 * **Recommendation:** For production-grade socioeconomic modeling in 2026, the model should be retrained on the latest American Community Survey (ACS) data.
-
----
-
-**Would you like me to show you how to generate the specific numbers for the "Metrics" section using the `compute_model_metrics` function we wrote earlier?**

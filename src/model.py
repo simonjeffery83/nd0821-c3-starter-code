@@ -1,22 +1,14 @@
 from sklearn.metrics import fbeta_score, precision_score, recall_score
-
+from sklearn.ensemble import RandomForestClassifier
 
 def train_model(X_train, y_train):
     """
     Trains a machine learning model and returns it.
-
-    Inputs
-    ------
-    X_train : np.ndarray
-        Training data.
-    y_train : np.ndarray
-        Labels.
-    Returns
-    -------
-    model : RandomForestClassifier
-        Trained machine learning model.
     """
-    pass
+    model = RandomForestClassifier(
+        n_estimators=100, max_depth=20, random_state=42)
+    model.fit(X_train, y_train)
+    return model
 
 
 def compute_model_metrics(y, preds):
