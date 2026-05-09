@@ -5,7 +5,7 @@ from sklearn.ensemble import RandomForestClassifier
 # Add the starter/starter directory to the python path
 # Adds the project root to the path so it can see the 'src' folder
 
-from src.train_model import train_model, compute_model_metrics, inference
+from src.model import train_model, compute_model_metrics, inference
 
 @pytest.fixture
 def data():

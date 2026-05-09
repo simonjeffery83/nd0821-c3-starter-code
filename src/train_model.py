@@ -4,14 +4,11 @@ import joblib
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import fbeta_score, precision_score, recall_score
 import sys
-import model as m
+import src.model as m
 # Adds the project root to the path so it can see the 'src' folder
 sys.path.append(os.path.dirname(
     os.path.dirname(os.path.abspath(__file__))))
 from src.data import process_data  # noqa: E402
-
-
-
 
 
 # --- SLICING PERFORMANCE FUNCTION ---
@@ -39,7 +36,7 @@ def compute_slices(df, feature, model, encoder, lb, cat_features):
         print(line)
         results.append(line)
 
-    with open("slice_output.txt", "a") as f:
+    with open("slice_output.txt", "w") as f:
         f.write(f"--- Slices for {feature} ---\n")
         for res in results:
             f.write(res + "\n")

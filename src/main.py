@@ -7,7 +7,7 @@ import sys
 
 # Adds the project root to the path so it can see the 'src' folder
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from src.train_model import inference  # noqa: E402
+from src.model import inference  # noqa: E402
 from src.data import process_data   # noqa: E402
 
 app = FastAPI()
